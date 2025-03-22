@@ -15,7 +15,7 @@ const HomeScreen = () => {
         const unsubscribeAuth = auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log("🔥 Kullanıcı giriş yaptı:", user.email);
-                setUser(user);
+                setUser(auth.currentUser);
             } else {
                 console.log("🚪 Kullanıcı çıkış yaptı.");
                 setUser(null);
@@ -65,9 +65,13 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.container}>
+            {user && !user.emailVerified && (
+                <Text style={styles.warningText}>⚠️ Eposta adresiniz onaylanmamış!</Text>
+            )}
+
             {user ? (
                 <View style={styles.contentContainer}>
-                    <Text style={styles.welcomeText}>Hoşgeldiniz, {user.email}!</Text>
+                    <Text style={styles.welcomeText}>Hoşgeldin, {user.displayName}!</Text>
 
                     {/* Profil ve Not Ekleme Butonları */}
                     <CustomButton
@@ -84,8 +88,15 @@ const HomeScreen = () => {
                         borderColor="darkblue"
                         textColor="white"
                         height={40}
-                        onPress={() => navigation.navigate("CreateNoteScreen")}
+                        onPress={() => {
+                            if (!user.emailVerified) {
+                                Alert.alert("Lütfen eposta adresinizi onaylayın.");
+                                return;
+                            }
+                            navigation.navigate("CreateNoteScreen");
+                        }}
                     />
+
 
                     {/* Notları Listeleme Alanı */}
                     <Text style={styles.sectionTitle}>📌 Notlarınız:</Text>
@@ -98,7 +109,7 @@ const HomeScreen = () => {
                                     <View style={styles.noteItem}>
                                         {/* Not İçeriği */}
                                         <Text style={styles.noteText}>{item.text}</Text>
-                                        
+
                                         {/* Sağ Tarafta Güncelle & Sil Butonları */}
                                         <View style={styles.buttonContainer}>
                                             <TouchableOpacity
@@ -107,7 +118,7 @@ const HomeScreen = () => {
                                             >
                                                 <Text style={styles.buttonText}>Güncelle</Text>
                                             </TouchableOpacity>
-                                            
+
                                             <TouchableOpacity
                                                 style={styles.deleteButton}
                                                 onPress={() => deleteNote(item.id)}

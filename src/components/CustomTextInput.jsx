@@ -11,13 +11,13 @@ const CustomTextInput = ({ placeholder, backgroundColor, borderColor, onChangeTe
         {
           width: width || screenWidth * 0.8,
           height: height || 50, // Varsayılan olarak 50px yüksekliği ayarla
-          backgroundColor: backgroundColor || 'white',
-          borderColor: borderColor || 'black',
+          backgroundColor: backgroundColor || 'lightgrey',
+          borderColor: borderColor || 'grey',
         }
       ]} 
       placeholder={placeholder}
       onChangeText={onChangeText}   
-      secureTextEntry={isPassword}
+      secureTextEntry={isPassword || false}
       keyboardType="default"
     />
   )

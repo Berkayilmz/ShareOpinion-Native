@@ -13,19 +13,18 @@ const LoginScreen = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigation = useNavigation();
 
     const handleLogin = async () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            Alert.alert("Başarılı", "Giriş İşlemi Başarılı!");
             navigation.navigate("HomeScreen");
         } catch (error) {
+            console.log(email);
             Alert.alert("Hata", error.message);
             console.error("Giriş Hatası:", error);
         }
     };
-    
-    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
