@@ -3,7 +3,7 @@ import React from 'react'
 
 const CustomIcon = ({ source, height, width }) => {
   if (!source) {
-    return null; // Eğer `source` boşsa hata almamak için boş bir return yapıyoruz
+    return null;
   }
 
   return (

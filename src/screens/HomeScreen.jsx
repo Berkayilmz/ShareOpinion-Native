@@ -11,7 +11,7 @@ const HomeScreen = () => {
     const [notes, setNotes] = useState([]);
 
     useEffect(() => {
-        // Kullanıcı oturum durumunu dinle
+  
         const unsubscribeAuth = auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log("🔥 Kullanıcı giriş yaptı:", user.email);
@@ -19,7 +19,7 @@ const HomeScreen = () => {
             } else {
                 console.log("🚪 Kullanıcı çıkış yaptı.");
                 setUser(null);
-                setNotes([]); // Kullanıcı çıkış yapınca notları temizle
+                setNotes([]);
             }
         });
 
@@ -29,7 +29,6 @@ const HomeScreen = () => {
     useEffect(() => {
         if (!user) return;
 
-        // Kullanıcının notlarını çekmek için Firestore sorgusu (Mevcut veritabanı yapısına göre)
         const notesRef = collection(db, "notes", user.uid, "userNotes");
         const q = query(notesRef);
 
@@ -41,9 +40,8 @@ const HomeScreen = () => {
             setNotes(notesArray);
         });
         return () => unsubscribeFirestore();
-    }, [user]); // Kullanıcı değişirse notları yeniden çek
+    }, [user]);
 
-    // 🔥 Not Silme Fonksiyonu
     const deleteNote = async (noteId) => {
         Alert.alert("Notu Sil", "Bu notu silmek istediğinizden emin misiniz?", [
             { text: "İptal", style: "cancel" },
@@ -73,7 +71,6 @@ const HomeScreen = () => {
                 <View style={styles.contentContainer}>
                     <Text style={styles.welcomeText}>Hoşgeldin, {user.displayName}!</Text>
 
-                    {/* Profil ve Not Ekleme Butonları */}
                     <CustomButton
                         title="Profil Bilgileri"
                         backgroundColor="red"
@@ -97,8 +94,6 @@ const HomeScreen = () => {
                         }}
                     />
 
-
-                    {/* Notları Listeleme Alanı */}
                     <Text style={styles.sectionTitle}>📌 Notlarınız:</Text>
                     <View style={styles.listContainer}>
                         {notes.length > 0 ? (
@@ -107,10 +102,9 @@ const HomeScreen = () => {
                                 keyExtractor={(item) => item.id}
                                 renderItem={({ item }) => (
                                     <View style={styles.noteItem}>
-                                        {/* Not İçeriği */}
+
                                         <Text style={styles.noteText}>{item.text}</Text>
 
-                                        {/* Sağ Tarafta Güncelle & Sil Butonları */}
                                         <View style={styles.buttonContainer}>
                                             <TouchableOpacity
                                                 style={styles.updateButton}
@@ -205,7 +199,7 @@ const styles = StyleSheet.create({
     },
     noteText: {
         fontSize: 14,
-        flex: 1, // Metin genişliği butonlara taşmasın
+        flex: 1, 
     },
     buttonContainer: {
         flexDirection: "row",

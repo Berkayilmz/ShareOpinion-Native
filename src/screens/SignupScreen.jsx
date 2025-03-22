@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native'
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
-import { auth } from "../firebaseConfig"; // 📌 Firebase auth'u içe aktar
+import { auth } from "../firebaseConfig"; 
 
 import CustomTextInput from "../components/CustomTextInput";
 import CustomButton from "../components/CustomButton";
@@ -56,12 +56,10 @@ const SignupScreen = () => {
 
     return (
         <View style={styles.container}>
-            {/* Üstteki İkon */}
             <View style={styles.iconContainer}>
                 <CustomIcon source={require('../../assets/person.png')} height={100} width={100} />
             </View>
 
-            {/* Input ve Buton Alanı */}
             <View style={styles.inputContainer}>
                 <CustomTextInput
                     backgroundColor="lightgrey"
@@ -109,11 +107,10 @@ const SignupScreen = () => {
                     borderColor="grey"
                     textColor="black"
                     height={40}
-                    onPress={handleSignup} // 📌 Firebase Kayıt Fonksiyonu
+                    onPress={handleSignup} 
                 />
             </View>
 
-            {/* Alt Boşluk */}
             <View style={styles.bottomSpace} />
         </View>
     );

@@ -10,7 +10,7 @@ const CustomTextInput = ({ placeholder, backgroundColor, borderColor, onChangeTe
         styles.textInput,
         {
           width: width || screenWidth * 0.8,
-          height: height || 50, // Varsayılan olarak 50px yüksekliği ayarla
+          height: height || 50,
           backgroundColor: backgroundColor || 'lightgrey',
           borderColor: borderColor || 'grey',
         }
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     textAlign: 'center',
-    paddingVertical: 10, // İçeriğin daha iyi hizalanmasını sağlar
+    paddingVertical: 10, 
   }
 })
