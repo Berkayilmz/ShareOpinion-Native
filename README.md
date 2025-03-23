@@ -1,52 +1,52 @@
-# 📱 React Native Firebase Temel Uygulama
+# 📱 React Native Firebase Basic App
 
-Bu proje, **React Native (Expo)** ile **Firebase** servislerini kullanarak mobil uygulama geliştirme konusundaki temel kavramları öğrenmek amacıyla hazırlanmıştır.
+This project was created to learn the fundamental concepts of mobile app development using **React Native (Expo)** and **Firebase** services.
 
-## 🎯 Amaç
+## 🎯 Purpose
 
-Bu uygulama, Firebase'in temel işlevlerini pratikte deneyimlemek ve ileride geliştirilecek projelerde kullanıcı yönetimi için sağlam bir temel oluşturmaktır. Uygulama yalnızca **öğrenme ve geliştirme amaçlı** hazırlanmıştır.
+The goal of this application is to practice the basic functionalities of Firebase and to build a solid foundation for user management in future projects. It is created **solely for learning and development purposes**.
 
-## 🔧 Kullanılan Teknolojiler
+## 🔧 Technologies Used
 
 - ⚛️ React Native (Expo)
 - 🔥 Firebase Authentication
-- 🔐 Firebase Email Doğrulama
-- 📬 Şifre Sıfırlama
-- 🗃️ Firestore (Kullanıcıya özel notlar için)
+- 🔐 Firebase Email Verification
+- 📬 Password Reset via Email
+- 🗃️ Firestore (User-specific notes)
 - 📦 React Navigation
 
-## ✨ Özellikler
+## ✨ Features
 
-- ✅ Yeni kullanıcı kaydı
-- 🔐 E-posta ve şifre ile kullanıcı girişi
-- 📩 E-posta doğrulama desteği
-- 🔄 Kayıtlı e-posta ile şifre sıfırlama
-- 🔒 Firebase Authentication ile güvenli oturum yönetimi
-- 📝 Her kullanıcıya özel Firestore koleksiyonu üzerinden not ekleme, güncelleme ve silme
-- 📌 Kullanıcı giriş yapmadan not eklenememesi
-- 🔒 Sadece e-postası doğrulanmış kullanıcıların not ekleyebilmesi
+- ✅ User registration
+- 🔐 Login with email and password
+- 📩 Email verification support
+- 🔄 Password reset via registered email
+- 🔒 Secure session management with Firebase Authentication
+- 📝 Create, update, and delete personal notes using Firestore collections
+- 📌 Notes cannot be created without logging in
+- 🔒 Only email-verified users can add notes
 
-## 🧠 Öğrenilenler
+## 🧠 What I Learned
 
-- Firebase Auth işlemleri (`createUserWithEmailAndPassword`, `signInWithEmailAndPassword`, `sendEmailVerification`, `sendPasswordResetEmail`, `signOut`)
-- Firestore ile kullanıcıya özel veri oluşturma ve okuma
-- Kullanıcı profil bilgilerini güncelleme (`updateProfile`, `updateEmail`)
-- React Native ile form tasarımı, özel bileşenler (`CustomButton`, `CustomTextInput`, `CustomIcon`)
-- Kullanıcı email doğrulama kontrolleri
+- Firebase Auth operations (`createUserWithEmailAndPassword`, `signInWithEmailAndPassword`, `sendEmailVerification`, `sendPasswordResetEmail`, `signOut`)
+- Creating and reading user-specific data with Firestore
+- Updating user profile data (`updateProfile`, `updateEmail`)
+- Designing forms and custom components with React Native (`CustomButton`, `CustomTextInput`, `CustomIcon`)
+- Handling email verification logic
 
-## 📁 Proje Yapısı
-
+## 📁 Project Structure
 src/
-├── components/        # Özel UI bileşenleri
-├── screens/           # Sayfa bileşenleri (Login, Signup, Profile, Home, Note)
-├── firebaseConfig.js  # Firebase yapılandırma dosyası
 
+    ├── components/        # Custom UI components
 
-## 🔒 Güvenlik Notu
+    ├── screens/           # Screen components (Login, Signup, Profile, Home, Note)
 
-Bu uygulama **KVKK ve diğer kullanıcı verisi politikalarına uygun değildir** ve **veri saklama amacıyla kullanılmamalıdır**. Sadece öğrenme ve geliştirme sürecinde kullanılmak içindir.
+    ├── firebaseConfig.js  # Firebase configuration file
 
-## 🚀 Gelecek Planlar
+## 🔒 Security Notice
 
-Bu temel uygulama, ileride geliştireceğim gerçek projeler için **kullanıcı kayıt ve oturum yönetimi işlemleri** açısından sağlam bir temel oluşturacaktır.
+This app is **not compliant with GDPR or similar data privacy regulations** and **should not be used for storing sensitive data**. It is only intended for learning and development.
 
+## 🚀 Future Plans
+
+This foundational app will serve as a base for more advanced applications that require **user registration and session management** features.
