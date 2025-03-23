@@ -71,7 +71,6 @@ const LoginScreen = () => {
 
             </View>
 
-            {/* Alt Kısım (1/6 oranında, boş bırakılabilir veya ek içerik eklenebilir) */}
             <View style={styles.bottomSpace} />
 
         </View>
@@ -82,25 +81,25 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, // Ekranın tamamını kaplasın
-        justifyContent: "space-between", // Dikeyde parçaları ayır
-        alignItems: "center", // Elemanları yatayda ortala
-        width: "100%", // Ekranı tam kaplasın
+        flex: 1, 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        width: "100%",
     },
     iconContainer: {
-        flex: 2, // İlk 2 parçayı ikon kaplasın
+        flex: 2, 
         alignItems: "center",
         justifyContent: "center",
-        width: "100%", // Tüm genişliği kaplasın
+        width: "100%",
     },
     inputContainer: {
-        flex: 3, // 3 parçayı input ve butonlar kaplasın
-        width: "90%", // Elemanların genişliği ekranın %90'ı olacak
+        flex: 3, 
+        width: "90%",
         alignItems: "center",
         justifyContent: "center",
         gap: 20
     },
     bottomSpace: {
-        flex: 1, // 1 parçayı boşluk olarak bırakıyoruz
+        flex: 1, 
     }
 })

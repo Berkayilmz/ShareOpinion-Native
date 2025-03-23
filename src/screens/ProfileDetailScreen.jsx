@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { auth } from '../firebaseConfig'
 import { signOut, updateProfile, updateEmail, sendPasswordResetEmail } from 'firebase/auth'
@@ -8,12 +8,11 @@ import CustomButton from '../components/CustomButton';
 import CustomTextInput from '../components/CustomTextInput';
 
 const ProfileDetailScreen = () => {
-
   const navigation = useNavigation();
   const user = auth.currentUser;
-  const [newFirstName, setNewFirstName] = useState(null);
-  const [newLastName, setNewLastName] = useState(null);
-  const [newEmail, setNewEmail] = useState(null);
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
 
   const handleLogout = async () => {
     try {
@@ -44,12 +43,8 @@ const ProfileDetailScreen = () => {
 
   const handleUpdatePassword = async () => {
     try {
-      
-      await sendPasswordResetEmail(auth, user.email)
-      .then(()=>{
-        Alert.alert("Şifre sıfırlama talebi epostanıza gönderilmiştir.")
-      })
-
+      await sendPasswordResetEmail(auth, user.email);
+      Alert.alert("📧 Şifre sıfırlama epostası gönderildi.");
     } catch (error) {
       console.error("❌ Güncelleme sırasında hata oluştu:", error.message);
       Alert.alert("Hata", error.message);
@@ -69,67 +64,77 @@ const ProfileDetailScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Profil Bilgileri</Text>
+
       <View style={styles.inputWrapper}>
         <CustomTextInput
           placeholder={newFirstName}
           onChangeText={setNewFirstName}
+          value={newFirstName}
         />
         <CustomTextInput
           placeholder={newLastName}
           onChangeText={setNewLastName}
+          value={newLastName}
         />
         <CustomTextInput
           placeholder={newEmail}
           onChangeText={setNewEmail}
+          value={newEmail}
         />
       </View>
 
       <View style={styles.buttonWrapper}>
         <CustomButton
-          title="Profil Bilgilerini Güncelle"
-          backgroundColor="darkblue"
-          borderColor="black"
+          title="Bilgileri Güncelle"
+          backgroundColor="#1E88E5"
+          borderColor="#1565C0"
           textColor="white"
           onPress={handleUpdateUser}
         />
         <CustomButton
-          title="Şifre Güncelleme Talebi"
-          backgroundColor="darkblue"
-          borderColor="black"
+          title="Şifre Sıfırla"
+          backgroundColor="#6A1B9A"
+          borderColor="#4A148C"
           textColor="white"
           onPress={handleUpdatePassword}
         />
         <CustomButton
           title="Çıkış Yap"
-          backgroundColor="darkred"
-          borderColor="black"
+          backgroundColor="#C62828"
+          borderColor="#B71C1C"
           textColor="white"
           onPress={handleLogout}
         />
       </View>
     </View>
-
   )
 }
 
-export default ProfileDetailScreen
+export default ProfileDetailScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between", // input ortada, butonlar altta
-    padding: 20,
-    backgroundColor: "#F5F5F5",
+    padding: 24,
+    backgroundColor: "#FAFAFA",
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 30,
+    textAlign: "center",
+    color: "#333",
   },
   inputWrapper: {
+    flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    flex: 1, // inputları ortala
-    gap: 20
+    gap: 16,
+    alignItems: "center"
   },
   buttonWrapper: {
-    paddingBottom: 20,
-    gap: 10,
+    gap: 12,
+    paddingBottom: 30,
     alignItems: "center"
   },
 });

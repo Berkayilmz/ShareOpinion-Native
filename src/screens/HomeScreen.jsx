@@ -11,13 +11,10 @@ const HomeScreen = () => {
     const [notes, setNotes] = useState([]);
 
     useEffect(() => {
-  
         const unsubscribeAuth = auth.onAuthStateChanged((user) => {
             if (user) {
-                console.log("🔥 Kullanıcı giriş yaptı:", user.email);
                 setUser(auth.currentUser);
             } else {
-                console.log("🚪 Kullanıcı çıkış yaptı.");
                 setUser(null);
                 setNotes([]);
             }
@@ -39,6 +36,7 @@ const HomeScreen = () => {
             });
             setNotes(notesArray);
         });
+
         return () => unsubscribeFirestore();
     }, [user]);
 
@@ -71,28 +69,30 @@ const HomeScreen = () => {
                 <View style={styles.contentContainer}>
                     <Text style={styles.welcomeText}>Hoşgeldin, {user.displayName}!</Text>
 
-                    <CustomButton
-                        title="Profil Bilgileri"
-                        backgroundColor="red"
-                        borderColor="darkred"
-                        textColor="white"
-                        height={40}
-                        onPress={() => navigation.navigate("ProfileDetailScreen")}
-                    />
-                    <CustomButton
-                        title="Not Ekle"
-                        backgroundColor="blue"
-                        borderColor="darkblue"
-                        textColor="white"
-                        height={40}
-                        onPress={() => {
-                            if (!user.emailVerified) {
-                                Alert.alert("Lütfen eposta adresinizi onaylayın.");
-                                return;
-                            }
-                            navigation.navigate("CreateNoteScreen");
-                        }}
-                    />
+                    <View style={styles.buttonWrapper}>
+                        <CustomButton
+                            title="Profil Bilgileri"
+                            backgroundColor="#ff5c5c"
+                            borderColor="#cc0000"
+                            textColor="white"
+                            height={45}
+                            onPress={() => navigation.navigate("ProfileDetailScreen")}
+                        />
+                        <CustomButton
+                            title="Not Ekle"
+                            backgroundColor="#4caf50"
+                            borderColor="#2e7d32"
+                            textColor="white"
+                            height={45}
+                            onPress={() => {
+                                if (!user.emailVerified) {
+                                    Alert.alert("Lütfen eposta adresinizi onaylayın.");
+                                    return;
+                                }
+                                navigation.navigate("CreateNoteScreen");
+                            }}
+                        />
+                    </View>
 
                     <Text style={styles.sectionTitle}>📌 Notlarınız:</Text>
                     <View style={styles.listContainer}>
@@ -102,13 +102,16 @@ const HomeScreen = () => {
                                 keyExtractor={(item) => item.id}
                                 renderItem={({ item }) => (
                                     <View style={styles.noteItem}>
-
                                         <Text style={styles.noteText}>{item.text}</Text>
-
-                                        <View style={styles.buttonContainer}>
+                                        <View style={styles.noteButtons}>
                                             <TouchableOpacity
                                                 style={styles.updateButton}
-                                                onPress={() => navigation.navigate("CreateNoteScreen", { noteId: item.id, text: item.text })}
+                                                onPress={() =>
+                                                    navigation.navigate("CreateNoteScreen", {
+                                                        noteId: item.id,
+                                                        text: item.text,
+                                                    })
+                                                }
                                             >
                                                 <Text style={styles.buttonText}>Güncelle</Text>
                                             </TouchableOpacity>
@@ -129,22 +132,22 @@ const HomeScreen = () => {
                     </View>
                 </View>
             ) : (
-                <View style={styles.buttonContainer}>
+                <View style={styles.authContainer}>
                     <Text style={styles.welcomeText}>Lütfen giriş yapın.</Text>
                     <CustomButton
                         title="Giriş Yap"
-                        backgroundColor="lightgrey"
-                        borderColor="grey"
-                        textColor="black"
-                        height={40}
+                        backgroundColor="#1976d2"
+                        borderColor="#0d47a1"
+                        textColor="white"
+                        height={45}
                         onPress={() => navigation.navigate("LoginScreen")}
                     />
                     <CustomButton
                         title="Kayıt Ol"
-                        backgroundColor="lightgrey"
-                        borderColor="grey"
-                        textColor="black"
-                        height={40}
+                        backgroundColor="#757575"
+                        borderColor="#424242"
+                        textColor="white"
+                        height={45}
                         onPress={() => navigation.navigate("SignupScreen")}
                     />
                 </View>
@@ -158,71 +161,93 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
         backgroundColor: "#F5F5F5",
-        paddingTop: 20,
+        paddingTop: 30,
+        paddingHorizontal: 20,
     },
     contentContainer: {
-        width: "90%",
         alignItems: "center",
+        flex: 1,
     },
     welcomeText: {
-        fontSize: 18,
+        fontSize: 20,
+        fontWeight: "600",
+        marginBottom: 15,
+        textAlign: "center",
+        color: "#333",
+    },
+    warningText: {
+        color: "red",
+        textAlign: "center",
         fontWeight: "bold",
         marginBottom: 10,
     },
     sectionTitle: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: "bold",
-        marginTop: 20,
+        marginTop: 30,
         marginBottom: 10,
+        alignSelf: "flex-start",
     },
     listContainer: {
         width: "100%",
-        padding: 10,
-        borderRadius: 10,
+        flex: 1,
     },
     noteItem: {
         backgroundColor: "white",
         padding: 15,
         marginVertical: 5,
-        borderRadius: 5,
+        borderRadius: 10,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 3,
+        shadowRadius: 3,
+        elevation: 2,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
     },
     noteText: {
+        flex: 1,
         fontSize: 14,
-        flex: 1, 
+        color: "#333",
     },
-    buttonContainer: {
+    noteButtons: {
         flexDirection: "row",
         gap: 8,
     },
     updateButton: {
         backgroundColor: "#fbc02d",
-        padding: 10,
-        borderRadius: 5,
+        padding: 8,
+        borderRadius: 6,
+        marginLeft: 5,
     },
     deleteButton: {
-        backgroundColor: "#d32f2f",
-        padding: 10,
-        borderRadius: 5,
+        backgroundColor: "#e53935",
+        padding: 8,
+        borderRadius: 6,
+        marginLeft: 5,
     },
     buttonText: {
         color: "white",
-        fontSize: 12,
         fontWeight: "bold",
+        fontSize: 12,
     },
     noNotesText: {
         fontSize: 14,
         color: "gray",
         textAlign: "center",
+        marginTop: 20,
+    },
+    buttonWrapper: {
+        width: "100%",
+        gap: 10,
+        marginBottom: 10,
+    },
+    authContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 15,
+        marginTop: 50,
     },
 });

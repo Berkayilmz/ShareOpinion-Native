@@ -7,12 +7,11 @@ import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 const CreateNoteScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
-    const { noteId, text } = route.params || {}; // Gelen parametreleri al
+    const { noteId, text } = route.params || {};
 
-    const [note, setNote] = useState(""); // Not state'i
+    const [note, setNote] = useState(""); 
 
     useEffect(() => {
-        // Eğer düzenleme yapıyorsak, mevcut notu set et
         if (text) {
             setNote(text);
         }
@@ -28,12 +27,10 @@ const CreateNoteScreen = () => {
 
         try {
             if (noteId) {
-                // 🔥 NOTU GÜNCELLEME KISMI (Eğer noteId varsa günceller)
                 const noteRef = doc(db, "notes", user.uid, "userNotes", noteId);
                 await updateDoc(noteRef, { text: note });
                 Alert.alert("Not Güncellendi!");
             } else {
-                // 🔥 YENİ NOT EKLEME KISMI (Eğer noteId yoksa yeni ekler)
                 await addDoc(collection(db, "notes", user.uid, "userNotes"), {
                     text: note,
                     userId: user.uid,
@@ -42,8 +39,8 @@ const CreateNoteScreen = () => {
                 Alert.alert("Not Eklendi!");
             }
 
-            setNote(""); // Giriş alanını temizle
-            navigation.navigate("HomeScreen"); // Ana ekrana dön
+            setNote(""); 
+            navigation.navigate("HomeScreen");
         } catch (error) {
             console.error("Not kaydedilirken hata oluştu: ", error);
             Alert.alert("Hata", "Not kaydedilemedi!");
